@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماشین حساب با جاوا اسکریپت</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            height: 100vh;
+            background-color:#f5f5f5;
+        }
+        .calculator{
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+
+        .display{
+            width : 100%;
+            height: 50px;
+            background-color: #222;
+            color: #fff;
+            text-align: right;
+            padding: 5px;
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        .button{
+            width: 60px;
+            height: 60px;
+            background-color: #f1f1f1;
+            border: none;
+            margin: 5px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            
+        }
+
+        .button:hover{
+            background-color: #ddd;
+        }
+
+        .button.operator {
+             background-color: #ffa726;
+             color: #fff;
+        }
+        
+        .button.operator:hover {
+            background-color: #fb8c00;
+        }
+ 
+        .button.equal {
+            background-color: #66bb6a;
+            color: #fff;
+        }
+
+        .button.equal:hover {
+            background-color: #43a047;
+        }
+
+        .button.clear {
+            background-color: #ef5350;
+            color: #fff;
+        }
+
+        .button.clear:hover {
+            background-color: #e53935;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        } 
+      
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" class="display" readonly>
+    <div class="buttons">
+        <button class="button" onclick="getdata('7')">7</button>
+        <button class="button" onclick="getdata('8')">8</button>
+        <button class="button" onclick="getdata('9')">9</button>
+        <button class="button operator" onclick="getdata('/')">/</button>
+
+        <button class="button" onclick="getdata('4')">4</button>
+        <button class="button" onclick="getdata('5')">5</button>
+        <button class="button" onclick="getdata('6')">6</button>
+        <button class="button operator" onclick="getdata('*')">*</button>
+
+        <button class="button" onclick="getdata('1')">1</button>
+        <button class="button" onclick="getdata('2')">2</button>
+        <button class="button" onclick="getdata('3')">3</button>
+        <button class="button operator" onclick="getdata('-')">-</button>
+
+        <button class="button clear" onclick="clearInput()">C</button>
+        <button class="button" onclick="getdata('0')">0</button>
+        <button class="button equal" onclick="calculate()">=</button>
+        <button class="button operator" onclick="getdata('+')">+</button>
+    </div>
+</div>
+
+<script>
+    let totalValue = "";
+    const display = document.getElementById("display");
+
+    const getdata = (val) => {
+        totalValue += val;
+        display.value = totalValue;
+    };
+
+    const calculate = () => {
+        try {
+            const result = new Function('return ' + totalValue)();
+            display.value = result;
+            totalValue = result.toString();  // ذخیره نتیجه به عنوان ورودی بعدی
+        } catch (error) {
+            display.value = "Error";
+            totalValue = "";
+        }
+    };
+
+    const clearInput = () => {
+        totalValue = "";
+        display.value = "";
+    };
+</script>
+
+</body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>beyki</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+        <div class="col-6-md justify-center">
+        <label class="" for=""><input type="text" id="res" value="" readonly></label><br>
+        <input class=" pl-1 pr-1 mt-1" type="button" value="1" onclick="getdata('1')">
+        <input class=" pl-1 pr-1 mt-1" type="button" value="2" onclick="getdata('2')">
+        <input class=" pl-1 pr-1 mt-1" type="button" value="3" onclick="getdata('3')">
+        <input class=" pl-1 pr-1 mt-1" type="button" value="4" onclick="getdata('4')">
+        <input class=" pl-1 pr-1 mt-1" type="button" value="5" onclick="getdata('5')">
+        <br>
+        <input class=" pl-1 pr-1 mt-1" type="button" value="6" onclick="getdata('6')">
+        <input class=" pl-1 pr-1 mt-1" type="button" value="7" onclick="getdata('7')">
+        <input class=" pl-1 pr-1 mt-1" type="button" value="8" onclick="getdata('8')">
+        <input class=" pl-1 pr-1 mt-1" type="button" value="9" onclick="getdata('9')">
+        <input class=" pl-1 pr-1 mt-1" type="button" value="0" onclick="getdata('0')">
+        <br>
+        <input class="mt-1" type="button" value="+"  onclick="getdata('+') ">
+        <input class="mt-1" type="button" value="-" onclick="getdata('-')">
+        <input class="mt-1" type="button" value="*" onclick="getdata('*')">
+        <input class="mt-1" type="button" value="/" onclick="getdata('/')">
+        <input class="mt-1" type="button" value="C" onclick="clearInput('C')">
+        <input class="mt-1" type="button" value="=" onclick="calculate()">
+             </div>
+        </div>
+    </div>
+<script>
+    let totalValue = "";
+    let res = document.getElementById("res");
+    console.log(res);
+            const getdata = (val) => {
+               
+                if(val === ""){
+                    res.value =  eval(totalValue)
+                }
+                else{
+                
+                totalValue+=val;
+                console.log(totalValue);
+                res.value = totalValue;
+                }
+            }
+
+                const calculate = ()=>{
+                    res.value = eval(totalValue)
+                }
+                const clearInput = () => { 
+                    totalValue = "";
+                    res.value = "";
+                }
+           
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html> -->
